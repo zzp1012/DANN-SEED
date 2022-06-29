@@ -3,6 +3,8 @@ import argparse
 import torch
 
 # import internal libs
+from data import prepare_dataset
+from model import prepare_model
 from utils import set_logger, get_logger, set_seed, set_device, \
     log_settings, save_current_src
 from config import DATE, MOMENT, SRC_PATH
@@ -75,6 +77,15 @@ def main():
     # save the current src
     save_current_src(save_path = args.save_path, 
                      src_path = SRC_PATH)
+
+    # prepare the dataset
+    logger.info("#########preparing dataset....")
+    data = prepare_dataset(args.dataset)
+
+    # prepare the model
+    logger.info("#########preparing model....")
+    model = prepare_model(args.model, args.dataset)
+
 
 if __name__ == "__main__":
     main()
