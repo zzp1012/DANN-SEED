@@ -5,6 +5,7 @@ import torch
 # import internal libs
 from data import prepare_dataset
 from model import prepare_model
+from trainer import train
 from utils import set_logger, get_logger, set_seed, set_device, \
     log_settings, save_current_src
 from config import DATE, MOMENT, SRC_PATH
@@ -85,6 +86,15 @@ def main():
     # prepare the model
     logger.info("#########preparing model....")
     model = prepare_model(args.model, args.dataset)
+
+    # train
+    logger.info("#########training....")
+    train(device = args.device,
+          model = model,
+          data = data,
+          epochs = args.epochs, 
+          batch_size = args.bs,
+          lr = args.lr)
 
 
 if __name__ == "__main__":
