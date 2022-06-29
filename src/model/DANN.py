@@ -1,9 +1,10 @@
+import torch
 import torch.nn as nn
 from torch.autograd import Function
 
 class DANN(nn.Module):
     lambda_ = 0.5
-    def __init__(self):
+    def __init__(self) -> None:
         """Constructor for the DANN model."""
         super(DANN, self).__init__()
         self.feature_extractor = nn.Sequential(
@@ -27,7 +28,7 @@ class DANN(nn.Module):
             nn.Linear(64, 2),
         )
 
-    def forward(self, X):
+    def forward(self, X: torch.Tensor) -> torch.Tensor:
         """Forward pass of the DANN model.
 
         Args:

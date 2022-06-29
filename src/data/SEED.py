@@ -12,7 +12,7 @@ class SEEDDataset(Dataset):
 
     def __init__(self, 
                  X: np.ndarray, 
-                 y: np.ndarray):
+                 y: np.ndarray) -> None:
         """
         Args:
             X (np.ndarray): the input data.
