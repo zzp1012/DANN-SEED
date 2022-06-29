@@ -3,7 +3,6 @@ import torch.nn as nn
 from torch.autograd import Function
 
 class DANN(nn.Module):
-    lambda_ = 0.5
     def __init__(self) -> None:
         """Constructor for the DANN model."""
         super(DANN, self).__init__()
@@ -28,7 +27,9 @@ class DANN(nn.Module):
             nn.Linear(64, 2),
         )
 
-    def forward(self, X: torch.Tensor) -> torch.Tensor:
+    def forward(self, 
+                X: torch.Tensor,
+                lambda_: float) -> torch.Tensor:
         """Forward pass of the DANN model.
 
         Args:
@@ -37,7 +38,7 @@ class DANN(nn.Module):
         """
         feature = self.feature_extractor(X)
         label_pred = self.label_predictor(feature)
-        feature_rev = ReverseLayer.apply(feature, self.lambda_)
+        feature_rev = ReverseLayer.apply(feature, lambda_)
         domain_pred = self.domain_discriminator(feature_rev)
         return label_pred, domain_pred
 
